@@ -1,0 +1,10 @@
+#musicas{
+	list-style: none;
+	border: 1px solid red; 
+	display: inline-block;
+	background-color: gray;
+	cursor: pointer;
+	}
+
+
+	
