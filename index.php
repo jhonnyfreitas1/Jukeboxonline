@@ -14,10 +14,18 @@
 						<form action="action_room.php" method="post">
 							<b><h4><label>Nome da sala</label></b>
 							<input type="text" name="nome_sala" placeholder="Ex..Festa das amigas">
+							<h4>escolha a cor</h4>
+							<label>red</label>
+							<input type="radio" name="r" value="red">
+							<label>blue</label>
+							<input type="radio" name="r" value="blue">
+							<label>white</label>
+							<input type="radio" name="r" value="white">
+
 							<input type="submit" value='enviar' name="">
 
 						</form>
-
+						<a href="desconectar.php" style="float:right;">Desconectar-se</a>
 					<hr>
 				</div>
 
@@ -50,16 +58,20 @@
 				$stmt = $conn -> query("select name_room,id_room from room");
 				$stmt -> execute();
 				$result = $stmt-> fetchall(PDO::FETCH_ASSOC);
-			
+					
 				foreach($result as $resultados) {
-				
-					echo  "<li><table border='1' id = 'salas'><tr><td><a href=''> ".$resultados['name_room']."</a></tr></td></table></li>";
+					
+					 $nome_sala= base64_encode($resultados['name_room']);
+					 $id_sala =base64_encode($resultados['id_room']);
+					echo  "<li><table border='1' id = 'salas'><tr><td><a href='
+						sala.php?nms=".$nome_sala."&singlenumber=".$id_sala	.
+						"'>".$resultados['name_room']."</a></tr></td></table></li>";
+				}	
 
-				}
-
-			?>
+					?>			
 
 		</div>	
+
 
 
 

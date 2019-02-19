@@ -1,6 +1,6 @@
 <?php 
-session_start()
-
+session_start();
+if (isset($_SESSION['user_id'])){
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,15 +23,24 @@ session_start()
 	<div id="fila-music" style="border-style: outset;border-width:5px; width: 300px; height:400px; float: right; margin-top: 20px;">
 		
 	</div>
-
 	<?php 
+ 		$id =  base64_decode($_GET['singlenumber']);
+ 		include 'conection_bd.php';
+		$stmt = $conn -> prepare('SELECT theme_room FROM room where id_room = ?');
+		$stmt -> bindValue(1, $id);
+		$stmt -> execute();
+		$var = $stmt -> fetch(PDO::FETCH_ASSOC);
  		$nome = base64_decode($_GET['nms']);
- 		echo "<script>document.title ='Sala: ".$nome."'</script>";
-		$id =  base64_decode($_GET['singlenumber']);
-	
 
+ 		echo "<script>document.title ='Sala: ".$nome."'
+			document.body.style.backgroundColor ='".$var['theme_room'].
+ 		"'</script>";
+		
+		
+		
+		
 	?>
-
+	 <center><a href="index.php">Sair</a> </center>
 </body>
 	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
@@ -46,16 +55,18 @@ session_start()
             datatype:'json',
             data:{arquivo:arquivo},
             success: function(response){
-           // response =  JSON.parse(response);
-            var response = response;
-    
-
+         
        		document.getElementById('results-music').innerHTML = 
-       		"<a id='musicas'>"+response+"</a>";
+       		"<table id='musicas'>"+response+"</table>";
            	console.log(response);
            	
             } 	
         });
-    });
+    }); 
 </script>
 </html>
+<?php } else 
+{	echo "<script> alert('se loga ai mane');</script>";
+	header('location:index.php');
+}
+?>
