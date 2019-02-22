@@ -29,9 +29,6 @@
 					<hr>
 				</div>
 
-
-
-
 		<?php }else {?>
 
 					<div id="header" style="">
@@ -71,17 +68,13 @@
 					?>			
 
 		</div>	
-
-
-
-
 	</body>
 	<script type="text/javascript">
 		
 
 	</script>
 
-<style type="text/css">
+	<style type="text/css">
 	#salas{
 		height:5em;
 		margin:10px;
@@ -97,5 +90,10 @@
 		display: inline-block;
 	}
 
-</style>
+	</style>
+	<script type="text/javascript">
+		
+
+
+	</script>
 </html>
