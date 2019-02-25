@@ -1,22 +1,25 @@
-	$( function() {
-	     // Definir playlist
-	    var playlist = [{
-	         artist: 'Daft Punk',
-	         title: 'Technologic',
-	         mp3: 'songs/technologic.mp3'
-	     }, {
-	         artist: 'Daft Punk',
-	         title: 'Human After All',
-	         mp3: 'songs/human-after-all.mp3'
-	     }, {
+
+        $( function() {
+         // Definir playlist
+         
+
+        var playlist = [{
+             artist: 'Daft Punk',
+             title: 'Technologic',
+             mp3: ' songs/technologic.mp3'
+         }, {
+             artist: 'Daft Punk',
+             title: 'Human After All',
+             mp3: 'songs/human-after-all.mp3'
+         }, {
             artist: '21 Savage',
              title: 'a lot ft J Cole',
              mp3: 'songs/a lot ft J Cole.mp3'
          }]; 
-	 alert(JSON.stringify(playlist));
+     
 
-	var currentTrack = 0;
-	var numTracks = playlist.length;
+    var currentTrack = 0;
+    var numTracks = playlist.length;
 
  var player = $('.player').jPlayer({
      ready: function () {
@@ -50,6 +53,7 @@
      }
  });
 
+        
 
   player.playCurrent = function() {
     player.jPlayer("setMedia", playlist[currentTrack]).jPlayer("play");
@@ -66,6 +70,12 @@
  };
 
 
+  $('.retorno').click(function() {
+    alert('bla bla');
+ });
+
+
+
   $('.player-next').click(function() {
      player.playNext();
  });
@@ -73,4 +83,5 @@
  $('.player-prev').click(function() {
     player.playPrevious();
  });
-});
+}); 
+
