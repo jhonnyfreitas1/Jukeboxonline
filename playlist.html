@@ -6,7 +6,7 @@
      <link href="css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css">     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
      <script type="text/JavaScript" src="http://demo.chapmanit.com/jplayerPlaylist/js/jquery.jplayer.min.js"></script>
      <script type="text/JavaScript">
-     <!--
+     <!-- 
      $(document).ready(function(){
            // Variável responsável por guardar o item atual de execução
            var playItem = 0;
@@ -20,6 +20,7 @@
                   {name:"Black Eyed Peas - Shut Up", mp3:"songs/shut-up.mp3"},                  {name:"Nightwish - Ghost River", mp3:"songs/ghost-river.mp3"},
                   {name:"Daft Punk - Technologic", mp3:"songs/technologic.mp3"}
           ];
+
           /* Cópias locais para os seletores jQuery, apenas para performance */
          // Guarda o tempo atual de execução
            var jpTempoExecucao = $("#jplayer_tempo_execucao");
@@ -168,5 +169,8 @@
                  </ul>
          </div>
    </div>
+   <script type="text/javascript">
+     alert(minhaPlayList);
+   </script>
 </body>
 </html>

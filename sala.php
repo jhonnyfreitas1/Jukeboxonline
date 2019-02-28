@@ -10,8 +10,12 @@ if (isset($_SESSION['user_id'])){
 		<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/js/plugins/jplayer/jquery.jplayer.min.js"></script>
+		
+ 
+
 		<script type="text/Javascript" src="/js/default.js">
-	
+		
+
 		</script>
 		<link rel="stylesheet" type="text/css" href="music.css">
 	</head>
@@ -65,6 +69,21 @@ if (isset($_SESSION['user_id'])){
 	         </div>
 	     </div>
 </body>
+  <?php
+        /* Aqui vou criar um array manualmente com a lista de músicas, mas as informações
+           podem vir de qualquer lugar, como um banco de dados */
+        $playlist = array (
+            array (
+                "artist" => 'PH Daft Punk',
+                "title" => 'Technologic',
+                "mp3" => 'songs/technologic.mp3',
+            ), array (
+                "artist" => 'Daft Punk',
+                "title" => 'Human After All',
+                "mp3" => 'songs/human-after-all.mp3',
+            )
+        );
+        ?>
 
 	<script type="text/javascript">
 	 $('#form').on('submit', function(e){
@@ -85,9 +104,17 @@ if (isset($_SESSION['user_id'])){
            	
             } 	
         });
-    });	
-	 
-
+    });		
+	 	function teste(e){
+	 		 	 var e = e;
+	 			 var musica = [{artist: 'default',
+	 		 					title:e.innerHTML,
+	 		 					mp3:'music/'+e.value}];
+	 		 	playlist = playlist +"," + musica;
+	 		 	alert(playlist);
+	 	}
+	 	var playlist = <?= json_encode($playlist); ?>;
+         
 </script>
 </html>
 <?php } else 
