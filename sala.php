@@ -10,10 +10,11 @@ if (isset($_SESSION['user_id'])){
 		<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="/js/plugins/jplayer/jquery.jplayer.min.js"></script>
-		
- 
-
 		<script type="text/Javascript" src="/js/default.js">
+		
+
+		</script>
+		<script type="text/Javascript" src="/js/teste.js">
 		
 
 		</script>
@@ -53,7 +54,7 @@ if (isset($_SESSION['user_id'])){
 	         <div class="container">
 	             <div class="player-controls">
 	                 <span class="player-prev">Prev</span>
-	                <span class="player-play">Play</span>
+	               	 <span class="player-play">Play</span>
 	                 <span class="player-pause">Pause</span>
 	                 <span class="player-stop">Stop</span>
 	                 <span class="player-next">Next</span>
@@ -67,55 +68,86 @@ if (isset($_SESSION['user_id'])){
 	                 Playing: <span class="player-current-track"></span>
 	             </div>
 	         </div>
-	     </div>
+	    </div>
 </body>
   <?php
-        /* Aqui vou criar um array manualmente com a lista de músicas, mas as informações
-           podem vir de qualquer lugar, como um banco de dados */
-        $playlist = array (
-            array (
-                "artist" => 'PH Daft Punk',
-                "title" => 'Technologic',
-                "mp3" => 'songs/technologic.mp3',
-            ), array (
-                "artist" => 'Daft Punk',
-                "title" => 'Human After All',
-                "mp3" => 'songs/human-after-all.mp3',
-            )
-        );
+        $stmt1 = $conn -> prepare("SELECT title,artist,mp3 from musics where fk_sala_id = ? order by ordem");
+        	$stmt1-> bindValue(1,$id); 
+        	$stmt1 -> execute();
+        	$result = $stmt1 -> fetchall(PDO::FETCH_ASSOC);
+        		//var_dump($result);
+ 		var_dump($result);
+
+	       
+	      // for ($i=0; $i <=sizeof($result); $i++) {
+	       	
+	      //  	$playlist = $playlist +  array(
+	      //  		  array(
+	      //  		'artist' => $result[$i]['artist'],
+	      //  		'title' => $result[$i]['nome_musica'],
+	      //  		'mp3' => $result[$i]['mp3'].".mp3"
+	      //  	 )
+
+	      //  	);
+	       			 
+	       			 	
+	       			 				 	
+    /*$playlist = array (
+        array (
+            "artist" => 'PH Daft Punk',
+            "title" => 'Technologic',
+            "mp3" => 'songs/technologic.mp3',
+        ), array (
+            "artist" => 'Daft Punk',
+            "title" => 'Human After All',
+            "mp3" => 'songs/human-after-all.mp3',
+        )*/
+       
         ?>
 
 	<script type="text/javascript">
-	 $('#form').on('submit', function(e){
-            e.preventDefault();
-            var that = this;
-            var arquivo = $('#form input[name="arquivo"').val();
-      
-            $.ajax({
-            type:'POST',
-            url:'buscar.php',
-            datatype:'json',
-            data:{arquivo:arquivo},
-            success: function(response){
-         
-       		document.getElementById('results-music').innerHTML = 
-       		"<table id='musicas'>"+response+"</table>";
-           	console.log(response);
-           	
-            } 	
-        });
-    });		
+		 $('#form').on('submit', function(e){
+	            e.preventDefault();
+	            var that = this;
+	            var arquivo = $('#form input[name="arquivo"').val();
+	      
+	            $.ajax({
+	            type:'POST',
+	            url:'buscar.php',
+	            datatype:'json',
+	            data:{arquivo:arquivo},
+	            success: function(response){
+	         
+	       		document.getElementById('results-music').innerHTML = 
+	       		"<table id='musicas'>"+response+"</table>";
+	           	console.log(response);
+	           	
+	            } 	
+	        });
+	    });		
 	 	function teste(e){
-	 		 	 var e = e;
-	 			 var musica = [{artist: 'default',
-	 		 					title:e.innerHTML,
-	 		 					mp3:'music/'+e.value}];
-	 		 	playlist = playlist +"," + musica;
-	 		 	alert(playlist);
+	 		 
+             var value = e;
+             var titulo = value.innerHTML;
+             var artista = 'default';
+             var mp3 = "music/"+value.value;
+             $.ajax({
+                type:'POST',
+                url:'recebe.php',
+                datatype:'json',
+                data:{titulo:titulo,artista:artista,mp3:mp3,id_sala:<?php echo $id;?>},
+                success: function(response){
+                    alert(response);
+                }
+             });
+        
+
 	 	}
-	 	var playlist = <?= json_encode($playlist); ?>;
-         
-</script>
+
+
+	 	var playlist = <?= json_encode($result); ?>;
+        
+	</script>
 </html>
 <?php } else 
 {	echo "<script> alert('se loga ai mane');</script>";

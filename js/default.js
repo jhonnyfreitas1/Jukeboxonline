@@ -1,3 +1,18 @@
+ $("#retorno").on('click',function(e){
+             var value = e;
+             $.ajax({
+                type:'POST',
+                url:'recebe.php',
+                datatype:'json',
+                data:{arquivo:value},
+                success: function(response){
+                    alert(response);
+
+                }
+             });
+         });
+
+
 $(function() {
     // Definir playlist
     // Aqui criamos a playlist apenas se ela não existir.

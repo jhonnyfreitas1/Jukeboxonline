@@ -7,7 +7,7 @@ session_start();
 		
 		include 'conection_bd.php';
 
-		$stmt =$conn -> prepare('INSERT INTO room (name_room,user_id,theme_room) values (?,?,?)');
+		$stmt =$conn -> prepare('INSERT INTO room (name_room,fk_user_id,theme_room) values (?,?,?)');
 		$stmt -> bindValue(1, $nome_sala);
 		$stmt -> bindValue(2, $_SESSION['user_id']);
 		$stmt -> bindValue(3, $radio);
