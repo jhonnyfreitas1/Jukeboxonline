@@ -71,7 +71,7 @@ if (isset($_SESSION['user_id'])){
 	    </div>
 </body>
   <?php
-        $stmt1 = $conn -> prepare("SELECT title,artist,mp3 from musics where fk_sala_id = ? order by ordem");
+        $stmt1 = $conn -> prepare("SELECT title,artist,mp3,id_music from musics where fk_sala_id = ? order by ordem");
         	$stmt1-> bindValue(1,$id); 
         	$stmt1 -> execute();
         	$result = $stmt1 -> fetchall(PDO::FETCH_ASSOC);
@@ -103,7 +103,7 @@ if (isset($_SESSION['user_id'])){
             "mp3" => 'songs/human-after-all.mp3',
         )*/
        
-        ?>
+        ?>	
 
 	<script type="text/javascript">
 		 $('#form').on('submit', function(e){

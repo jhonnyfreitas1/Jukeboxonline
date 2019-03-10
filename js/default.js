@@ -1,41 +1,23 @@
- $("#retorno").on('click',function(e){
-             var value = e;
-             $.ajax({
-                type:'POST',
-                url:'recebe.php',
-                datatype:'json',
-                data:{arquivo:value},
-                success: function(response){
-                    alert(response);
-
-                }
-             });
-         });
-
-
 $(function() {
     // Definir playlist
     // Aqui criamos a playlist apenas se ela não existir.
     // Util para o exemplo em PHP, que define a playlist antes de inserir este arquivo
-    if (typeof playlist === 'undefined') {
+    if (playlist[0] == null) {
        
         playlist = [{
-            artist: 'Daft Punk',
-            title: 'Technologic',
-            mp3: 'songs/technologic.mp3'
-        }, {
-            artist: 'Daft Punk',
-            title: 'Human After All',
-            mp3: 'songs/human-after-all.mp3'
+            artist: 'Lista vazia',
+            title: 'escolha uma musica',
+            mp3: 'songs/#'
         }];
     }
        
+ 
       for (i=0; i < playlist.length; i++) {
                         var listItem = (i == playlist.length-1) ? "<li class='result-list'>" : "<li>";
                         listItem += "<a href='#' id='playlist_item_"+i+"' tabindex='1'>"+ playlist[i].title;
                         $("#fila-music").append(listItem);
-                               
-}
+                    }                               
+
     // Variável auxiliar para controlarmos a posição atual dentro da playlist
     var currentTrack = 0;
 
@@ -50,17 +32,36 @@ $(function() {
     $('.player-prev').click(function() {
         player.playPrevious();
     });
-
     // Criar o player
+  
+       function adicionar(){
+      for (i=0; i < playlist.length; i++) {
+                        var listItem = (i == playlist.length-1) ? "<li class='result-list'>" : "<li>";
+                        listItem += "<a href='#' id='playlist_item_"+i+"' tabindex='1'>"+ playlist[i].title;
+                        $("#fila-music").append(listItem);
+                    }
+                }
     player = $(".player").jPlayer({
         ready: function () {
             // Executar a primeira música da playlist
             // Se não quiser autoplay, remova estas linhas
             player.jPlayer("setMedia", playlist[currentTrack])
-            // player.playCurrent();
+            player.playCurrent();
         },
+        
         ended: function() {
             // Quando terminar de tocar uma música, ir para a próxima
+                
+               $.ajax({
+                type:'post',
+                url:'update-music.php',
+                datatype:'json',
+                data:{id:playlist[0]['id_music']},
+            success: function(response){
+                alert(response);
+            }
+           })     
+            adicionar();
             $(this).playNext();
         },
         play: function(){

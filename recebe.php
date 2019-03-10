@@ -1,8 +1,7 @@
 <?php 
 session_start();
 	include "conection_bd.php";
-$artista = $_POST['artista'];
-$nome = $_POST['titulo'];
+$nome = explode('-',$_POST['titulo']);
 $mp3 = $_POST['mp3'];
 $id = $_POST['id_sala'];
 	
@@ -14,8 +13,8 @@ $id = $_POST['id_sala'];
 	 $numero = intval($result2[0])+1;
 	 
 	 $stmt = $conn -> prepare("INSERT INTO musics(title,artist,ordem,fk_id_user,fk_sala_id,mp3) VALUES (?,?,?,?,?,?)");
-	 $stmt ->bindValue(1, $nome);
-	 $stmt ->bindValue(2, $artista);
+	 $stmt ->bindValue(1, $nome[1]);
+	 $stmt ->bindValue(2, $nome[0]);
 	 $stmt ->bindValue(3, $numero);
 	 $stmt ->bindValue(4, $_SESSION['user_id']);
 	 $stmt ->bindValue(5, $id);
